@@ -9,9 +9,8 @@
 
 const express = require('express');
 
-// DEBUG::TMP
+// DEBUG
 // const moment = require('moment');
-// DEBUG::TMP
 
 const app = express();
 
@@ -50,7 +49,7 @@ app.get('/images', async (req, res) => {
   // const statusCode = mathRandom > 0.5 ? 400 : 200;
   const statusCode = 200;
 
-
+  // prepare params
   const params = {};
   ['limit', 'offset', 'imgHeight', 'imgWidth'].forEach(paramName => {
     params[paramName] = req.query[paramName] ? Math.ceil(parseInt(req.query[paramName])) : 0;
@@ -79,12 +78,11 @@ app.get('/images', async (req, res) => {
     results: []
   };
 
-  // DEBUG::TMP: just log the request...
+  // DEBUG
   const log = {
     limit: params.limit,
     offset: params.offset,
   };
-  // DEBUG::TMP
 
   if (params.limit > 0) {
     // determine the last image to return
@@ -107,14 +105,12 @@ app.get('/images', async (req, res) => {
       });
     }
 
-    // DEBUG::TMP
+    // DEBUG
     log.lastImageNumber = lastImageNumber;
-    // DEBUG::TMP
   }
 
-  // DEBUG::TMP
+  // DEBUG
   console.log(`GET /goals: statusCode ${statusCode} | limit ${log.limit} | offset ${log.offset} | lastImageNumber ${log.lastImageNumber}`);
-  // DEBUG::TMP
 
   res.statusCode = statusCode;
   res.json(jsonResponseData);
